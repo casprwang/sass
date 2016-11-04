@@ -4,6 +4,11 @@
 * Extensible
 * Written in Ruby
 * Nesting
+* Operations
+* Minxins (like adding JS)
+* Syntax
+  * .sass (no punctuations)
+  * .scss (with punctuations)
 
 
 
@@ -16,4 +21,17 @@ $main_color : rgb(110, 17, 233);
 
 /*Import Moudule*/
 @import "modules/nav"
+
+/*extend*/
+.btn-reverse {
+  @extend .btn;
+  background: rgb(99, 11, 156);
+}
+
+/*Operations*/
+@if {
+
+} @else {
+
+}
 ~~~
