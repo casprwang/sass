@@ -7,6 +7,9 @@
 
 
 
-~~~JavaScript
-var a = 0;
+~~~Sass
+
+$main_color : rgb(110, 17, 233);
+
+
 ~~~
