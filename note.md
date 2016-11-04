@@ -7,6 +7,6 @@
 
 
 
-~~~
+~~~JavaScript
 var a = 0;
 ~~~
