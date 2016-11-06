@@ -1,16 +1,15 @@
 # SASS
 
 ```sass
+// if
 p {
   @if 1 + 1 == 2 { border: 1px solid;  }
   @if 5 < 3      { border: 2px dotted; }
   @if null       { border: 3px double; }
 }
 
-p {
-border: 1px solid; }
 
-
+// if else
 $type: monster;
 p {
   @if $type == ocean {
