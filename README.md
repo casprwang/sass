@@ -23,6 +23,24 @@ p {
   }
 }
 
+//for
+@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+
+//for each
+@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+
+//while
+$i: 6;
+@while $i > 0 {
+  .item-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}
 
 
 
