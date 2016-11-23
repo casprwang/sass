@@ -43,5 +43,37 @@ $i: 6;
 }
 
 
+// & = this(parent)
+@mixin does-parent-exist {
+  @if &
+    &:hover {
+      color: red;
+    }
+  } @else {
+    a {
+      color: red;
+    }
+  }
+}
+
+
 
 ```
+
+nth($list, $n):
+the nth() function in sass needs the position to starts at 1!!!
+that's against with JS, little bit uncomfortable
+
+
+```sass
+// nav if it is in the header
+nav {
+	header & {
+		background-color: darken($blue, 15%);
+	}
+```
+
+
+ampersand &
+
+clearfix should be a minxin and inclue whenever you have a float opeartion 

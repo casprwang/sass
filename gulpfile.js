@@ -1,38 +1,64 @@
-var gulp = require('gulp'),
-    jshint = require('gulp-jshint'),
-    sass = require('gulp-ruby-sass'),
-    sourcemaps = require('gulp-sourcemaps'),
-    webserver = require('gulp-webserver');
+const gulp = require('gulp');
+// const jade = require('gulp-jade');
+const pug = require('gulp-pug');
+const sass = require('gulp-sass');
+const browserSync = require('browser-sync').create();
 
-gulp.task('js', function() {
-  return gulp.src('builds/sassEssentials/js/myscript.js')
-    .pipe(jshint('./.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'));
+// const watch = require('gulp-watch');
+// const del  = require('del');
+
+
+gulp.task ('pug', function(){
+    return gulp.src('src/pug/*.pug')
+        .pipe(pug({
+            pretty: true
+        }))
+        .pipe(gulp.dest('app/html'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
 });
 
-gulp.task('sass', function () {
-    return sass('process/sass/style.scss', {
-      sourcemap: true,
-      style: 'expanded'
-    })
-    .on('error', function (err) {
-        console.error('Error!', err.message);
-    })
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('builds/sassEssentials/css'));
+gulp.task('sass', function(){
+    return gulp.src('src/sass/main.scss')
+        .pipe(sass().on('error', sass.logError)) // Converts Sass to CSS with gulp-sass
+        .pipe(gulp.dest('app/css'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
 });
 
-gulp.task('watch', function() {
-  gulp.watch('builds/sassEssentials/js/**/*', ['js']);
-  gulp.watch(['process/sass/**/*'], ['sass']);
-});
+gulp.task('browserSync', function() {
+  browserSync.init({
+    server: {
+      baseDir: './app'
+    },
+  })
+})
 
-gulp.task('webserver', function() {
-    gulp.src('builds/sassEssentials/')
-        .pipe(webserver({
-            livereload: true,
-            open: true
-        }));
-});
 
-gulp.task('default', ['watch', 'sass','webserver']);
+// build in 'watch'
+gulp.task ('default', ['browserSync', 'pug', 'sass'], function() {
+    gulp.watch('src/pug/*.pug', ['pug']);
+    gulp.watch('src/sass/*.scss', ['sass']);
+    gulp.watch('app/index.html', browserSync.reload);
+    gulp.watch('app/main.css', browserSync.reload);
+})
+
+
+
+
+
+
+// // del
+// gulp.task('del', function () {
+//   return del([
+//     'dist/report.csv',
+//     // here we use a globbing pattern to match everything inside the `mobile` folder
+//     'dist/mobile/**/*',
+//     // we don't want to clean this file though so we negate the pattern
+//     '!dist/mobile/deploy.json'
+//   ]);
+// });
+//
+// gulp.task('default', ['clean:mobile']);
